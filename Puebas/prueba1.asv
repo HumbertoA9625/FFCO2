@@ -1,0 +1,21 @@
+% Prueba 1
+clear all
+
+% Create grid
+nx=50; ny=50; nz=10;
+G = cartGrid([nx,ny,nz]);
+
+% Make geometry
+G = computeGeometry(G)
+
+% Assign properties
+Rock.perm = [1000 100 10]*milli*darcy.*ones(G.cells.num, 1);
+Rock.por = .3*ones(G.cells, 1);
+
+%Transmisibilidad
+ht= computeTrans(G,Rock);
+
+%Fluid properties
+
+fluid = initSimpleFluid ('mu', [ 1, 10] *centi*poise, ...
+                         'rho', [])
